@@ -6,6 +6,7 @@
         "github-actions",
         "html",
         "pep621",
+        "npm",
         "pip_requirements",
         "pre-commit"
     ],
