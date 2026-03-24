@@ -4,8 +4,8 @@ import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 class SampleData {
-  title: string = ""
-  text: string = ""
+  title = '';
+  text = '';
 }
 
 @Component({
@@ -17,7 +17,7 @@ class SampleData {
 export class App {
   protected readonly title = signal('mex-editor');
 
-  private http = inject(HttpClient)
+  private http = inject(HttpClient);
 
-  data$ = this.http.get<SampleData[]>("http://127.0.0.1:8000/api/v0/sample-data")
+  data$ = this.http.get<SampleData[]>('http://127.0.0.1:8000/api/v0/sample-data');
 }

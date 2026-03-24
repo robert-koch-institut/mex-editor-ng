@@ -91,12 +91,18 @@ def npm_watch() -> Generator[subprocess.Popen[bytes]]:
 
 def npm() -> None:
     """Run npm commands via `uv run run-npm ...`."""
-    exec_npm(sys.argv[1:])
+    try:
+        exec_npm(sys.argv[1:])
+    except subprocess.CalledProcessError as exc:
+        raise SystemExit(exc.returncode) from None
 
 
 def npx() -> None:
     """Run npx commands via `uv run run-npx ...`."""
-    exec_npx(sys.argv[1:])
+    try:
+        exec_npx(sys.argv[1:])
+    except subprocess.CalledProcessError as exc:
+        raise SystemExit(exc.returncode) from None
 
 
 def install() -> None:

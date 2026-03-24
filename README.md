@@ -95,6 +95,25 @@ components of the MEx project are open-sourced under the same license as well.
 - run `uv run {command} --help` to print instructions
 - run `uv run {command} --debug` for interactive debugging
 
-### editor
+### Editor
 
-- `editor` starts the editor service
+- `uv run install-frontend` install Node.js dependencies
+- `uv run build-frontend` build the Angular frontend for production
+- `uv run install-and-build-frontend` install dependencies and build
+- `uv run editor` start the editor api and frontend simultaneously
+- `uv run editor --dev` starts the editor api and frontend with hot reload
+- `uv run editor --startup frontend` start only the frontend
+- `uv run editor --startup api` start only the backend
+- `uv run test-frontend` run frontend tests and start api automatically
+- `uv run pytest` run python backend api tests with pytest
+
+### Node
+
+- `uv run exec-npm audit fix` audit node dependencies
+- `uv run exec-npm run ng lint` run ESLint on the Angular frontend
+- `uv run exec-npm run ng lint -- --fix` run ESLint with auto-fix
+- `uv run exec-npx prettier --check src` check formatting
+- `uv run exec-npx prettier --write src` auto-format frontend code
+- `uv run exec-npm run test` run frontend unit tests
+- `uv run exec-npm run start` start Angular dev server with live reload
+- `uv run exec-npm run watch` build frontend in watch mode

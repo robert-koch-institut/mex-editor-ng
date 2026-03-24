@@ -4,11 +4,14 @@
     <p>Congratulations! Your app is running. 🎉</p>
   </div>
   <div>
-    <div>DATA: </div>
+    <div>DATA:</div>
     @for (item of data$ | async; track item.title) {
-    <li><b>{{ item.title }}</b><br>{{ item.text }}</li>
+      <li>
+        <b>{{ item.title }}</b
+        ><br />{{ item.text }}
+      </li>
     } @empty {
-    <li>There are no items.</li>
+      <li>There are no items.</li>
     }
   </div>
 </main>
