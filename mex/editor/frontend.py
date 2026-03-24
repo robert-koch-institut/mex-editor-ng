@@ -22,7 +22,7 @@ def _get_node_env() -> dict[str, str]:
     env = os.environ.copy()
     env["NODE_PATH"] = f"{CLIENT_NODE_MODULES}"
     env["NPM_CONFIG_PREFIX"] = f"{CLIENT}"
-    env["PATH"] = f"{NODE_BIN_DIR / env['PATH']}"
+    env["PATH"] = f"{NODE_BIN_DIR}{os.pathsep}{env['PATH']}"
     return env
 
 
