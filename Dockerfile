@@ -3,9 +3,9 @@
 FROM python:3.14 AS base
 
 LABEL org.opencontainers.image.authors="mex@rki.de"
-LABEL org.opencontainers.image.description="The Editor enables everyone to create and edit entities in a simple and fast way."
+LABEL org.opencontainers.image.description="The editor enables anyone to create and edit entities in a simple and fast way."
 LABEL org.opencontainers.image.licenses="MIT"
-LABEL org.opencontainers.image.url="https://github.com/robert-koch-institut/mex-editor"
+LABEL org.opencontainers.image.url="https://github.com/robert-koch-institut/mex-editor-ng"
 LABEL org.opencontainers.image.vendor="robert-koch-institut"
 
 ENV PYTHONUNBUFFERED=1

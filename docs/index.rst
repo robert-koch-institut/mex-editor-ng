@@ -1,7 +1,7 @@
 Documentation
 =============
 
-The Editor enables everyone to create and edit entities in a simple and fast way.
+The editor enables anyone to create and edit entities in a simple and fast way.
 
 .. toctree::
     :maxdepth: 2

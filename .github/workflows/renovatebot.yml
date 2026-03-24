@@ -25,7 +25,7 @@ jobs:
         uses: renovatebot/github-action@v46.1.2
         env:
           RENOVATE_GIT_PRIVATE_KEY: ${{ secrets.GPG_SIGNING_KEY }}
-          RENOVATE_REPOSITORIES: "robert-koch-institut/mex-editor"
+          RENOVATE_REPOSITORIES: "robert-koch-institut/mex-editor-ng"
         with:
           configurationFile: renovate.json
           token: ${{ secrets.WORKFLOW_TOKEN }}
