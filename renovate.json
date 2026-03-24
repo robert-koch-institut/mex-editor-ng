@@ -1,0 +1,46 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "enabledManagers": [
+        "docker-compose",
+        "dockerfile",
+        "github-actions",
+        "html",
+        "pep621",
+        "pip_requirements",
+        "pre-commit"
+    ],
+    "gitAuthor": "RKIMetadataExchange <mex@rki.de>",
+    "lockFileMaintenance": {
+        "enabled": true,
+        "schedule": [
+            "before 4am on monday"
+        ]
+    },
+    "packageRules": [
+        {
+            "matchPackageNames": [
+                "mex-*"
+            ],
+            "matchUpdateTypes": [
+                "digest",
+                "lockFileMaintenance",
+                "major",
+                "minor",
+                "patch",
+                "pin"
+            ]
+        },
+        {
+            "matchUpdateTypes": [
+                "digest",
+                "lockFileMaintenance",
+                "major",
+                "minor",
+                "patch",
+                "pin"
+            ],
+            "minimumReleaseAge": "7 days"
+        }
+    ],
+    "prFooter": ""
+}

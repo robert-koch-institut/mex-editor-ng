@@ -1,0 +1,44 @@
+fail_fast: false
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.4
+    hooks:
+      - id: ruff-check
+        args: [--fix, --exit-non-zero-on-fix]
+      - id: ruff-format
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: pretty-format-json
+        name: root json
+        args: [--autofix, --indent=4, --no-ensure-ascii]
+        exclude: (.cruft.json|mex/editor/client/)
+      - id: pretty-format-json
+        name: client json
+        args: [--autofix, --indent=2, --no-ensure-ascii]
+        exclude: package-lock.json
+        files: ^mex/editor/client/
+      - id: check-yaml
+        name: yaml
+        exclude: templates\/[a-z_-]+.yaml
+      - id: end-of-file-fixer
+        name: eof
+      - id: trailing-whitespace
+        name: whitespaces
+      - id: fix-byte-order-marker
+        name: byte-order
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.10.7
+    hooks:
+      - id: uv-lock
+        name: uv
+        args: [--check]
+  - repo: local
+    hooks:
+    - id: mypy
+      name: mypy
+      entry: uv run dmypy run --timeout 7200 -- mex tests
+      files: ^(mex|tests)/
+      language: system
+      pass_filenames: false
+      types: [python]

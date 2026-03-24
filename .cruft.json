@@ -1,0 +1,15 @@
+{
+  "checkout": null,
+  "commit": "0c16a64c09906a7f4dab3297a99d8e358214f566",
+  "context": {
+    "cookiecutter": {
+      "_commit": "0c16a64c09906a7f4dab3297a99d8e358214f566",
+      "_template": "https://github.com/robert-koch-institut/mex-template",
+      "long_summary": "TBD",
+      "project_name": "editor",
+      "short_summary": "The Editor enables everyone to create and edit entities in a simple and fast way."
+    }
+  },
+  "directory": null,
+  "template": "https://github.com/robert-koch-institut/mex-template"
+}
