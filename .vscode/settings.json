@@ -1,0 +1,34 @@
+{
+    // ANGULAR
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    "html.format.enable": false,
+    "typescript.format.enable": false,
+    // PYTHON
+    "python.autoComplete.extraPaths": [
+        "${workspaceFolder}/.venv/lib"
+    ],
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}/.venv/lib"
+    ],
+    "python.analysis.exclude": [
+        "${workspaceFolder}/.mypy_cache",
+        "${workspaceFolder}/.pytest_cache",
+        "${workspaceFolder}/.venv"
+    ],
+    "python.testing.pytestArgs": [
+        "-s"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "python.testing.pytestPath": "${workspaceFolder}/.venv/scripts/pytest",
+}

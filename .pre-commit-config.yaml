@@ -12,7 +12,7 @@ repos:
       - id: pretty-format-json
         name: root json
         args: [--autofix, --indent=4, --no-ensure-ascii]
-        exclude: (.cruft.json|mex/editor/client/)
+        exclude: (.cruft.json|mex/editor/client/|.vscode)
       - id: pretty-format-json
         name: client json
         args: [--autofix, --indent=2, --no-ensure-ascii]
@@ -35,17 +35,17 @@ repos:
         args: [--check]
   - repo: local
     hooks:
-    - id: mypy
-      name: mypy
-      entry: uv run dmypy run --timeout 7200 -- mex tests
-      files: ^(mex|tests)/
-      language: system
-      pass_filenames: false
-      types: [python]
-    - id: ngLint
-      name: ngLint
-      entry: uv run exec-npm run lint
-      files: ^mex/editor/client/
-      language: system
-      pass_filenames: false
-      types: [ts]
+      - id: mypy
+        name: mypy
+        entry: uv run dmypy run --timeout 7200 -- mex tests
+        files: ^(mex|tests)/
+        language: system
+        pass_filenames: false
+        types: [python]
+      - id: ngLint
+        name: ngLint
+        entry: uv run exec-npm run lint
+        files: ^mex/editor/client/
+        language: system
+        pass_filenames: false
+        types: [ts]

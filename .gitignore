@@ -112,6 +112,8 @@ dmypy.json
 
 # VisualStudioCode
 .vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
 .history/
 *.code-workspace
 
