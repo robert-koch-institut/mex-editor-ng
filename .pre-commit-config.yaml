@@ -42,3 +42,10 @@ repos:
       language: system
       pass_filenames: false
       types: [python]
+    - id: ngLint
+      name: ngLint
+      entry: uv run exec-npm run lint
+      files: ^mex/editor/client/
+      language: system
+      pass_filenames: false
+      types: [ts]
