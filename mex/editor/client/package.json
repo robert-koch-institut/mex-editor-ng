@@ -6,6 +6,7 @@
     "@angular/forms": "^21.2.5",
     "@angular/platform-browser": "^21.2.5",
     "@angular/router": "^21.2.5",
+    "lodash": "4.17.7",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
