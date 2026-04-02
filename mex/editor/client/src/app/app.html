@@ -2,17 +2,31 @@
   <div>
     <h1>Hello, {{ title() }}</h1>
     <p>Congratulations! Your app is running. 🎉</p>
+    <mat-slide-toggle>Toggle me!</mat-slide-toggle>
   </div>
   <div>
-    <div>DATA:</div>
-    @for (item of data$ | async; track item.title) {
-      <li>
-        <b>{{ item.title }}</b
-        ><br />{{ item.text }}
-      </li>
-    } @empty {
-      <li>There are no items.</li>
-    }
+    <h3>Base Href</h3>
+    <h5>Images via tag</h5>
+    <img src="/root_image.png" alt="root image (/root_image.png)" />
+    <img src="/sub_dir/sub_image.jpg" alt="sub dir image (/sub_dir/sub_image.jpg)" />
+    <h5>Images via css</h5>
+    <div class="image image-root"></div>
+    <div class="image image-sub"></div>
+    <button routerLink="/subpage">Go to sub page</button>
+    <button routerLink="/sub/subpage">Go to sub sub page</button>
+  </div>
+  <div>
+    <h3>DATA:</h3>
+    <ul>
+      @for (item of data$ | async; track item.title) {
+        <li>
+          <b>{{ item.title }}</b
+          ><br />{{ item.text }}
+        </li>
+      } @empty {
+        <li>There are no items.</li>
+      }
+    </ul>
   </div>
 </main>
 <router-outlet />

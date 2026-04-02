@@ -1,19 +1,33 @@
 from contextlib import asynccontextmanager
 from typing import TYPE_CHECKING, Literal
 
+from starlette.requests import Scope
+from starlette.responses import Response
+
 if TYPE_CHECKING:  # pragma: no cover
     from collections.abc import AsyncGenerator
 
 import click
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from mex.common.logging import logger
 from mex.editor.api.data import router as data_router
 from mex.editor.api.system import router as system_router
 from mex.editor.frontend import CLIENT_DIST, npm_watch
+
+
+class SPAStaticFiles(StaticFiles):
+    async def get_response(self, path: str, scope: Scope) -> Response:
+        try:
+            return await super().get_response(path, scope)
+        except (HTTPException, StarletteHTTPException) as ex:
+            if ex.status_code == 404:
+                return await super().get_response("index.html", scope)
+            raise ex
 
 
 @asynccontextmanager
@@ -44,7 +58,11 @@ def create_fastapi(
         app.include_router(data_router, prefix="/api/v0")
         app.include_router(system_router, prefix="/api/v0")
     if startup in ["frontend", "both"]:
-        app.mount("/", StaticFiles(directory=CLIENT_DIST, html=True))
+        app.mount(
+            "/",
+            SPAStaticFiles(directory=CLIENT_DIST, html=True),
+            name="spa-static-files",
+        )
     return app
 
 
