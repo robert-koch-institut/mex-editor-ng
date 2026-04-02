@@ -1,5 +1,15 @@
 # syntax=docker/dockerfile:1
 
+FROM node:22-slim AS frontend
+
+# TODO move this into the python builder stage, use uv-managed node
+
+WORKDIR /build
+COPY mex/editor/client/ .
+RUN npm ci
+RUN npx ng build --output-path /dist/root
+RUN npx ng build --base-href /editor/ --output-path /dist/subpath
+
 FROM python:3.14 AS builder
 
 WORKDIR /build
@@ -38,8 +48,7 @@ RUN pip install --no-cache-dir \
     /wheels/*.whl \
     && rm -rf /wheels
 
-
-    RUN adduser \
+RUN adduser \
     --disabled-password \
     --gecos "" \
     --shell "/sbin/nologin" \
@@ -47,10 +56,11 @@ RUN pip install --no-cache-dir \
     --uid "10001" \
     mex
 
-COPY --chown=mex assets assets
+COPY --from=frontend --chown=mex /dist/root /app/dist/root
+COPY --from=frontend --chown=mex /dist/subpath /app/dist/subpath
 
 USER mex
 
-EXPOSE 8080
+EXPOSE 8000
 
-ENTRYPOINT [ "editor" ]
+ENTRYPOINT [ "editor", "--static-dir", "/app/dist/root" ]

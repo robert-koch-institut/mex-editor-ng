@@ -1,4 +1,5 @@
 from contextlib import asynccontextmanager
+from pathlib import Path
 from typing import TYPE_CHECKING, Literal
 
 from starlette.requests import Scope
@@ -17,7 +18,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from mex.common.logging import logger
 from mex.editor.api.data import router as data_router
 from mex.editor.api.system import router as system_router
-from mex.editor.frontend import CLIENT_DIST, npm_watch
+from mex.editor.frontend import npm_watch
 
 
 class SPAStaticFiles(StaticFiles):
@@ -42,6 +43,8 @@ async def dev_lifespan(_: FastAPI) -> AsyncGenerator[None]:  # pragma: no cover
 def create_fastapi(
     mode: Literal["dev"] | None = None,
     startup: Literal["api", "frontend", "both"] = "both",
+    static_dir: Path | None = None,
+    base_path: str = "",
 ) -> FastAPI:
     """Create and configure the FastAPI application."""
     app = FastAPI(
@@ -55,12 +58,14 @@ def create_fastapi(
         allow_headers=["*"],
     )
     if startup in ["api", "both"]:
-        app.include_router(data_router, prefix="/api/v0")
-        app.include_router(system_router, prefix="/api/v0")
+        app.include_router(data_router, prefix=f"{base_path}/api/v0")
+        app.include_router(system_router, prefix=f"{base_path}/api/v0")
     if startup in ["frontend", "both"]:
+        # TODO use CLIENT_DIST for local
+        directory = static_dir
         app.mount(
-            "/",
-            SPAStaticFiles(directory=CLIENT_DIST, html=True),
+            f"{base_path}/",
+            SPAStaticFiles(directory=directory, html=True),
             name="spa-static-files",
         )
     return app
@@ -80,11 +85,25 @@ def create_fastapi(
     default=False,
     help="Define if started in dev mode to watch angular src and rebuild on change.",
 )
+@click.option(
+    "--static-dir",
+    type=click.Path(exists=True, path_type=Path),
+    default=None,
+    help="Directory to serve static files from. Defaults to the client dist.",
+)
+@click.option(
+    "--base-path",
+    type=str,
+    default="",
+    help="Base path prefix for all routes, e.g. '/editor'.",
+)
 def main(
     *,
     startup: Literal["api", "frontend", "both"] = "both",
     dev: bool = False,
+    static_dir: Path | None = None,
+    base_path: str = "",
 ) -> None:  # pragma: no cover
     """Start the mex-editor api."""
-    app = create_fastapi("dev" if dev else None, startup)
-    uvicorn.run(app, port=8000)
+    app = create_fastapi("dev" if dev else None, startup, static_dir, base_path)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
