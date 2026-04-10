@@ -1,0 +1,53 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "editor-debug[builtin]",
+            "type": "debugpy",
+            "request": "attach",
+            "connect": {
+                "host": "localhost",
+                "port": 5678
+            },
+            "preLaunchTask": "editor-debug[builtin]",
+        },
+        {
+            "name": "editor-debug[external]",
+            "type": "debugpy",
+            "request": "attach",
+            "connect": {
+                "host": "localhost",
+                "port": 5678
+            },
+            "preLaunchTask": "editor-debug[external]",
+        },
+        {
+            "name": "angular-dev[edge]",
+            "type": "msedge",
+            "request": "launch",
+            "url": "http://localhost:4200",
+            "webRoot": "${workspaceFolder}/mex/editor/client",
+            "preLaunchTask": "angular-dev",
+            "sourceMaps": true
+        },
+    ],
+    "compounds": [
+        {
+            "name": "Run Editor (debug-builtin)",
+            "configurations": [
+                "editor-debug[builtin]",
+                "angular-dev[edge]"
+            ]
+        },
+        {
+            "name": "Run Editor (debug-external)",
+            "configurations": [
+                "editor-debug[external]",
+                "angular-dev[edge]"
+            ]
+        }
+    ]
+}

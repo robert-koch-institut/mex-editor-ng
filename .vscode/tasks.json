@@ -1,0 +1,61 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "editor-debug[builtin]",
+            "type": "shell",
+            "command": "uv run editor --debug",
+            "isBackground": true,
+            "problemMatcher": {
+                "pattern": [
+                    {
+                        // check if uvicorn/python error patterns
+                        "regexp": "^(NOMATCH)$",
+                        "file": 1,
+                        "message": 1,
+                        "location": 1
+                    }
+                ],
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "Warte auf Debugger...",
+                    "endsPattern": "Warte auf Debugger..."
+                }
+            }
+        },
+        {
+            "label": "editor-debug[external]",
+            "type": "shell",
+            "command": "uv run python -m debugpy --listen 5678 --wait-for-client --log-to-stderr -m mex.editor.main",
+            "isBackground": true,
+            "problemMatcher": {
+                "pattern": {
+                    "regexp": "^$",
+                    "file": 1,
+                    "location": 2,
+                    "message": 3
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": ".",
+                    "endsPattern": "wait_for_client()"
+                }
+            }
+        },
+        {
+            "label": "angular-dev",
+            "type": "shell",
+            "command": "uv run exec-npx ng serve",
+            "isBackground": true,
+            "problemMatcher": {
+                "owner": "typescript",
+                "pattern": "$tsc",
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "Building...",
+                    "endsPattern": "Application bundle generation complete."
+                }
+            }
+        },
+    ]
+}

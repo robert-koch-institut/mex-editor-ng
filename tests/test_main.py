@@ -18,23 +18,20 @@ def test_main_app(client: TestClient) -> None:
 
 
 @pytest.mark.parametrize(
-    ("mode", "startup", "expect_api", "expect_static"),
+    ("startup", "expect_api", "expect_static"),
     [
-        (None, "both", True, True),
-        (None, "api", True, False),
-        (None, "frontend", False, True),
-        ("dev", "both", True, True),
-        ("dev", "api", True, False),
+        ("both", True, True),
+        ("api", True, False),
+        ("frontend", False, True),
     ],
-    ids=["both", "api-only", "frontend-only", "dev-both", "dev-api"],
+    ids=["both", "api-only", "frontend-only"],
 )
 def test_create_fastapi(
-    mode: Literal["dev"] | None,
     startup: Literal["api", "frontend", "both"],
     expect_api: bool,  # noqa: FBT001
     expect_static: bool,  # noqa: FBT001
 ) -> None:
-    app = create_fastapi(mode, startup)
+    app = create_fastapi(startup)
     route_paths = [r.path for r in app.routes if isinstance(r, Route)]
     mount_paths = [r.path for r in app.routes if isinstance(r, Mount)]
     assert ("/api/v0/sample-data" in route_paths) == expect_api

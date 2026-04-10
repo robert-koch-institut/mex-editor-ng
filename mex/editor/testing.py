@@ -15,7 +15,7 @@ if TYPE_CHECKING:  # pragma: no cover
 
 def create_testing_api() -> FastAPI:
     """Create a FastAPI instance with only the API routes for testing."""
-    return create_fastapi(None, "api")
+    return create_fastapi("api")
 
 
 @backoff.on_exception(
@@ -35,7 +35,7 @@ def wait_for_server() -> None:
 
 def run() -> None:
     """Start the api server and run angular tests against it."""
-    server = subprocess.Popen(  # noqa: S603
+    server = subprocess.Popen(
         [
             sys.executable,
             "-m",

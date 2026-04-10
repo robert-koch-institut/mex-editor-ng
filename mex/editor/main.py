@@ -1,11 +1,9 @@
-from contextlib import asynccontextmanager
-from typing import TYPE_CHECKING, Literal
+from typing import TYPE_CHECKING, Any, Literal
 
-from starlette.requests import Scope
-from starlette.responses import Response
+from mex.editor.debugpy import setup_debugpy
 
 if TYPE_CHECKING:  # pragma: no cover
-    from collections.abc import AsyncGenerator
+    from starlette.responses import Response
 
 import click
 import uvicorn
@@ -14,14 +12,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-from mex.common.logging import logger
 from mex.editor.api.data import router as data_router
 from mex.editor.api.system import router as system_router
-from mex.editor.frontend import CLIENT_DIST, npm_watch
+from mex.editor.frontend import CLIENT_DIST
 
 
 class SPAStaticFiles(StaticFiles):
-    async def get_response(self, path: str, scope: Scope) -> Response:
+    async def get_response(self, path: str, scope: Any) -> Response:
         try:
             return await super().get_response(path, scope)
         except (HTTPException, StarletteHTTPException) as ex:
@@ -30,23 +27,12 @@ class SPAStaticFiles(StaticFiles):
             raise ex
 
 
-@asynccontextmanager
-async def dev_lifespan(_: FastAPI) -> AsyncGenerator[None]:  # pragma: no cover
-    """Run npm watch during dev mode."""
-    logger.info("Starting npm run watch")
-    with npm_watch():
-        yield
-    logger.info("Stopped npm run watch")
-
-
 def create_fastapi(
-    mode: Literal["dev"] | None = None,
     startup: Literal["api", "frontend", "both"] = "both",
 ) -> FastAPI:
     """Create and configure the FastAPI application."""
     app = FastAPI(
         title="mex-editor",
-        lifespan=dev_lifespan if mode == "dev" else None,
     )
     app.add_middleware(
         CORSMiddleware,
@@ -74,17 +60,22 @@ def create_fastapi(
     help="Define what should start 'api', 'frontend' or 'both'.",
 )
 @click.option(
-    "--dev",
-    "-d",
+    "--debug",
     is_flag=True,
     default=False,
-    help="Define if started in dev mode to watch angular src and rebuild on change.",
+    help="Define if started in debug mode to be able to attach to debugpy (port: 5678).",
 )
 def main(
     *,
     startup: Literal["api", "frontend", "both"] = "both",
-    dev: bool = False,
+    debug: bool = False,
 ) -> None:  # pragma: no cover
     """Start the mex-editor api."""
-    app = create_fastapi("dev" if dev else None, startup)
+    app = create_fastapi(startup)
+    if debug:
+        setup_debugpy()
     uvicorn.run(app, port=8000)
+
+
+if __name__ == "__main__":
+    main()
