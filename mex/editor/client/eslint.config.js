@@ -41,8 +41,6 @@ module.exports = defineConfig([
           style: 'kebab-case',
         },
       ],
-
-      // Tier 1 — direct ruff parity
       // ruff TC001-010 typing-only imports
       '@typescript-eslint/consistent-type-imports': [
         'error',
@@ -76,8 +74,6 @@ module.exports = defineConfig([
       // ruff A001-A006 builtin-shadowing
       'no-shadow': 'off',
       '@typescript-eslint/no-shadow': 'error',
-
-      // Tier 2 — complexity + naming
       // ruff C901 / PLR0911-0915 complexity caps
       complexity: ['error', 12],
       'max-params': ['error', 5],
@@ -93,8 +89,6 @@ module.exports = defineConfig([
         { selector: 'enumMember', format: ['PascalCase', 'UPPER_CASE'] },
         { selector: 'import', format: ['camelCase', 'PascalCase'] },
       ],
-
-      // Tier 3 — security (narrowed)
       // ruff S307 suspicious-eval-usage
       'security/detect-eval-with-expression': 'error',
     },
