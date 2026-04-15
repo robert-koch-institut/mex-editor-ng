@@ -35,7 +35,7 @@ def wait_for_server() -> None:
 
 def run() -> None:
     """Start the api server and run angular tests against it."""
-    server = subprocess.Popen(  # noqa: S603
+    server = subprocess.Popen(
         [
             sys.executable,
             "-m",
