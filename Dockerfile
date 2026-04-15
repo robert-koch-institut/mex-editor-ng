@@ -1,15 +1,5 @@
 # syntax=docker/dockerfile:1
 
-FROM node:22-slim AS frontend
-
-# TODO move this into the python builder stage, use uv-managed node
-
-WORKDIR /build
-COPY mex/editor/client/ .
-RUN npm ci
-RUN npx ng build --output-path /dist/root
-RUN npx ng build --base-href /editor/ --output-path /dist/subpath
-
 FROM python:3.14 AS builder
 
 WORKDIR /build
@@ -23,9 +13,12 @@ COPY . .
 
 RUN pip install --no-cache-dir -r requirements.txt
 RUN uv export --no-dev --no-hashes --output-file requirements.lock
+RUN pip install --no-cache-dir --no-deps -r requirements.lock
+RUN pip install --no-cache-dir --no-deps .
 
-RUN pip wheel --no-cache-dir --wheel-dir /build/wheels -r requirements.lock
-RUN pip wheel --no-cache-dir --wheel-dir /build/wheels --no-deps .
+RUN install-frontend
+RUN MEX_EDITOR__CLIENT_DIR="/build/dist" MEX_EDITOR__BASE_HREF="/"        build-frontend
+RUN MEX_EDITOR__CLIENT_DIR="/build/dist" MEX_EDITOR__BASE_HREF="/editor/" build-frontend
 
 FROM python:3.14-slim
 
@@ -38,29 +31,18 @@ LABEL org.opencontainers.image.vendor="robert-koch-institut"
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONOPTIMIZE=1
 
+ENV MEX_EDITOR__CLIENT_DIR="/app/dist"
+ENV MEX_EDITOR__HOST="0.0.0.0"
+ENV MEX_EDITOR__BASE_HREF="/"
+
 WORKDIR /app
 
-COPY --from=builder /build/wheels /wheels
+COPY --from=builder /usr/local/lib/python3.14/site-packages /usr/local/lib/python3.14/site-packages
+COPY --from=builder /usr/local/bin/editor /usr/local/bin/editor
+COPY --from=builder --chown=10001:10001 /build/dist /app/dist
 
-RUN pip install --no-cache-dir \
-    --no-index \
-    --find-links=/wheels \
-    /wheels/*.whl \
-    && rm -rf /wheels
-
-RUN adduser \
-    --disabled-password \
-    --gecos "" \
-    --shell "/sbin/nologin" \
-    --no-create-home \
-    --uid "10001" \
-    mex
-
-COPY --from=frontend --chown=mex /dist/root /app/dist/root
-COPY --from=frontend --chown=mex /dist/subpath /app/dist/subpath
-
-USER mex
+USER 10001
 
 EXPOSE 8000
 
-ENTRYPOINT [ "editor", "--static-dir", "/app/dist/root" ]
+ENTRYPOINT [ "editor" ]
