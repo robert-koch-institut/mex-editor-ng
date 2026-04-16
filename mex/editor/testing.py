@@ -18,6 +18,11 @@ def create_testing_api() -> FastAPI:
     return create_fastapi(None, "api")
 
 
+def create_testing_api_with_frontend() -> FastAPI:
+    """Create a FastAPI instance with API routes and frontend for testing."""
+    return create_fastapi(None, "both")
+
+
 @backoff.on_exception(
     backoff.constant,
     (requests.ConnectionError, requests.HTTPError),
@@ -35,7 +40,7 @@ def wait_for_server() -> None:
 
 def run() -> None:
     """Start the api server and run angular tests against it."""
-    server = subprocess.Popen(  # noqa: S603
+    server = subprocess.Popen(
         [
             sys.executable,
             "-m",

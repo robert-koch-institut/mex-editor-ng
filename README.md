@@ -78,6 +78,7 @@ components of the MEx project are open-sourced under the same license as well.
 - update git hooks with `pre-commit autoupdate`
 - update package dependencies using `uv sync --upgrade`
 - update github actions in `.github/workflows/*.yml` manually
+- update node modules using `uv run exec-npm install --package-lock-only`
 
 ### Creating release
 
@@ -117,3 +118,4 @@ components of the MEx project are open-sourced under the same license as well.
 - `uv run exec-npm run test` run frontend unit tests
 - `uv run exec-npm run start` start Angular dev server with live reload
 - `uv run exec-npm run watch` build frontend in watch mode
+- `uv run exec-npm install --package-lock-only` to update the lock file

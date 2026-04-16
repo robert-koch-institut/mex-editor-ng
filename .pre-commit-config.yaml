@@ -10,11 +10,11 @@ repos:
     rev: v5.0.0
     hooks:
       - id: pretty-format-json
-        name: root json
+        name: root-json
         args: [--autofix, --indent=4, --no-ensure-ascii]
         exclude: (.cruft.json|mex/editor/client/|.vscode)
       - id: pretty-format-json
-        name: client json
+        name: client-json
         args: [--autofix, --indent=2, --no-ensure-ascii]
         exclude: package-lock.json
         files: ^mex/editor/client/
@@ -42,8 +42,8 @@ repos:
         language: system
         pass_filenames: false
         types: [python]
-      - id: ngLint
-        name: ngLint
+      - id: ng-lint
+        name: ng-lint
         entry: uv run exec-npm run lint
         files: ^mex/editor/client/
         language: system
