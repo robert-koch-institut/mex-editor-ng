@@ -12,9 +12,7 @@ ENV PIP_PROGRESS_BAR=off
 COPY . .
 
 RUN pip install --no-cache-dir -r requirements.txt
-RUN uv export --no-dev --no-hashes --output-file requirements.lock
-RUN pip install --no-cache-dir --no-deps -r requirements.lock
-RUN pip install --no-cache-dir --no-deps .
+RUN uv export --no-dev | uv pip install --system --no-deps -r - .
 
 RUN install-frontend
 RUN MEX_EDITOR__CLIENT_DIR="/build/dist" MEX_EDITOR__BASE_HREF="/"        build-frontend

@@ -4,13 +4,11 @@ services:
     image: mex-editor:local
     environment:
       MEX_EDITOR__BASE_HREF: "/editor/"
-    expose:
-      - "8000"
 
   httpd:
     image: httpd:2.4
     ports:
-      - "8900:80"
+      - "8000:80"
     volumes:
       - ./httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
     depends_on:
