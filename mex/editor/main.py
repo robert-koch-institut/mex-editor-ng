@@ -13,7 +13,6 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from mex.common.logging import logger
 from mex.editor.api.data import router as data_router
 from mex.editor.api.system import router as system_router
-from mex.editor.debugpy import setup_debugpy
 from mex.editor.frontend import STATIC_DIR, npm_watch
 from mex.editor.settings import EditorSettings
 
@@ -96,23 +95,14 @@ def create_fastapi(
     default=False,
     help="Define if started in dev mode to watch angular src and rebuild on change.",
 )
-@click.option(
-    "--debug",
-    is_flag=True,
-    default=False,
-    help="Start in debug mode to attach to debugpy (port: 5678).",
-)
 def main(
     *,
     startup: Literal["api", "frontend", "both"] = "both",
     dev: bool = False,
-    debug: bool = False,
 ) -> None:  # pragma: no cover
     """Start the mex-editor api."""
     settings = EditorSettings.get()
     app = create_fastapi(startup, "dev" if dev else None)
-    if debug:
-        setup_debugpy()
     uvicorn.run(
         app,
         host=settings.host,

@@ -1,5 +1,4 @@
 {
-  // ANGULAR
   "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -11,7 +10,6 @@
   },
   "html.format.enable": false,
   "js/ts.format.enabled": false,
-  // PYTHON
   "python.autoComplete.extraPaths": ["${workspaceFolder}/.venv/lib"],
   "python.analysis.extraPaths": ["${workspaceFolder}/.venv/lib"],
   "python.analysis.exclude": [
