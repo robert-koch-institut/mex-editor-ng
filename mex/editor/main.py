@@ -14,6 +14,7 @@ from mex.common.logging import logger
 from mex.editor.api.data import router as data_router
 from mex.editor.api.system import router as system_router
 from mex.editor.frontend import STATIC_DIR, npm_watch
+from mex.editor.logging import UVICORN_LOGGING_CONFIG
 from mex.editor.settings import EditorSettings
 
 if TYPE_CHECKING:  # pragma: no cover
@@ -108,8 +109,11 @@ def main(
         host=settings.host,
         port=settings.port,
         root_path="" if settings.base_href == "/" else settings.base_href.rstrip("/"),
+        reload=dev,
+        log_config=UVICORN_LOGGING_CONFIG,
+        headers=[("server", "mex-editor")],
     )
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     main()

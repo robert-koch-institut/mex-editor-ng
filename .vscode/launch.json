@@ -2,14 +2,14 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "editor-debug[external]",
+      "name": "editor-debug",
       "type": "debugpy",
       "request": "attach",
       "connect": {
         "host": "localhost",
         "port": 5678
       },
-      "preLaunchTask": "editor-debug[external]"
+      "preLaunchTask": "editor-debug"
     },
     {
       "name": "angular-dev[edge]",
@@ -23,8 +23,8 @@
   ],
   "compounds": [
     {
-      "name": "Run Editor (debug-external)",
-      "configurations": ["editor-debug[external]", "angular-dev[edge]"]
+      "name": "Run Editor (debug)",
+      "configurations": ["editor-debug", "angular-dev[edge]"]
     }
   ]
 }

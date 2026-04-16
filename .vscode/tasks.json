@@ -2,9 +2,9 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "editor-debug[external]",
+      "label": "editor-debug",
       "type": "shell",
-      "command": "uv run python -m debugpy --listen 5678 --wait-for-client --log-to-stderr -m mex.editor.main",
+      "command": "uv run debugpy --listen 5678 --wait-for-client --log-to-stderr -m mex.editor.main --startup api",
       "isBackground": true,
       "problemMatcher": {
         "pattern": {
