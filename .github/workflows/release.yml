@@ -74,7 +74,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.MEX_CONTENT_WRITE_TOKEN }}
         run: |
-          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          npm version ${{ inputs.version }} --no-git-tag-version --prefix mex/editor/client/
+          git add mex/editor/client/package.json mex/editor/client/package-lock.json
           mex release ${{ inputs.version }}
           echo "tag=$(git describe --abbrev=0 --tags)" >> "$GITHUB_OUTPUT"
 

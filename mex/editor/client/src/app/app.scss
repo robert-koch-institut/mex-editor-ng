@@ -3,18 +3,17 @@
 }
 
 .image {
-  // width: 200px;
   height: 200px;
   background-size: cover;
   background-position: center;
 }
 
 .image-root {
-  background-image: url("/root_image.png");
+  background-image: url("../assets/root_image.png");
   aspect-ratio: 400 / 300;
 }
 
 .image-sub {
-  background-image: url("/sub_dir/sub_image.jpg");
+  background-image: url("../assets/sub_dir/sub_image.jpg");
   aspect-ratio: 400 / 250;
 }

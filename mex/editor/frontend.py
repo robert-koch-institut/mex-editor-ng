@@ -5,12 +5,16 @@ from contextlib import contextmanager
 from pathlib import Path
 from typing import TYPE_CHECKING
 
+from mex.editor.settings import EditorSettings
+
 if TYPE_CHECKING:  # pragma: no cover
     from collections.abc import Generator
 
+settings = EditorSettings.get()
 
 CLIENT = Path(__file__).parent.resolve() / "client"
-CLIENT_DIST = CLIENT / "dist" / "mex-editor" / "browser"
+CLIENT_DIST = settings.client_dir / settings.base_href.strip("/")
+STATIC_DIR = CLIENT_DIST / "browser"
 CLIENT_NODE_MODULES = CLIENT / "node_modules"
 NODE_VIRTUAL_ENV = CLIENT / ".nodeenv"
 NODE_BIN_DIR = NODE_VIRTUAL_ENV / ("Scripts" if sys.platform == "win32" else "bin")
@@ -78,7 +82,14 @@ def exec_py(py_args: list[str]) -> subprocess.CompletedProcess[bytes]:
 def npm_watch() -> Generator[subprocess.Popen[bytes]]:
     """Start `npm run watch` and terminate it on exit."""
     process = subprocess.Popen(  # noqa: S603
-        [*_get_npm_command(), "run", "watch"],
+        [
+            *_get_npm_command(),
+            "run",
+            "watch",
+            "--",
+            "--output-path",
+            str(CLIENT_DIST),
+        ],
         env=_get_node_env(),
         cwd=CLIENT,
     )
@@ -108,12 +119,22 @@ def npx() -> None:
 def install() -> None:
     """Install nodeenv and npm dependencies."""
     exec_py(["nodeenv", f"{NODE_VIRTUAL_ENV}", "--force"])
-    exec_npm(["install"])
+    exec_npm(["clean-install"])
 
 
 def build() -> None:
     """Build the angular frontend."""
-    exec_npm(["run", "build"])
+    exec_npm(
+        [
+            "run",
+            "build",
+            "--",
+            "--output-path",
+            str(CLIENT_DIST),
+            "--base-href",
+            settings.base_href,
+        ]
+    )
 
 
 def install_and_build() -> None:
