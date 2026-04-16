@@ -9,14 +9,6 @@ if TYPE_CHECKING:  # pragma: no cover
     from fastapi.testclient import TestClient
 
 
-def test_main_app(client: TestClient) -> None:
-    response = client.get("/")
-    assert response.status_code == 200
-    assert "text/html" in response.headers["content-type"]
-    assert "</html>" in response.text
-    assert "<app-root></app-root>" in response.text
-
-
 @pytest.mark.parametrize(
     ("startup", "expect_api", "expect_static"),
     [
@@ -36,3 +28,25 @@ def test_create_fastapi(
     mount_paths = [r.path for r in app.routes if isinstance(r, Mount)]
     assert ("/api/v0/sample-data" in route_paths) == expect_api
     assert ("" in mount_paths) == expect_static
+
+
+@pytest.mark.parametrize(
+    ("path", "accept", "expected_status", "expected_body"),
+    [
+        ("/favicon.ico", "*/*", 200, None),
+        ("/nonexistent", "text/html", 200, "MEx Editor"),
+        ("/missing.js", "application/javascript", 404, None),
+    ],
+    ids=["existing-file", "spa-fallback", "missing-asset-404"],
+)
+def test_spa_static_files(
+    client_with_frontend: TestClient,
+    path: str,
+    accept: str,
+    expected_status: int,
+    expected_body: str | None,
+) -> None:
+    response = client_with_frontend.get(path, headers={"accept": accept})
+    assert response.status_code == expected_status
+    if expected_body:
+        assert expected_body in response.text

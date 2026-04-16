@@ -20,9 +20,9 @@ export class App {
 
   private http = inject(HttpClient);
 
-  data$ = this.http.get<SampleData[]>("/api/v0/sample-data");
+  data$ = this.http.get<SampleData[]>("api/v0/sample-data");
 
-  on_click() {
-    console.log("CLICKED");
+  onClick() {
+    console.warn("CLICKED");
   }
 }

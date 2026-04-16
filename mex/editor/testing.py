@@ -18,6 +18,11 @@ def create_testing_api() -> FastAPI:
     return create_fastapi("api")
 
 
+def create_testing_api_with_frontend() -> FastAPI:
+    """Create a FastAPI instance with API routes and frontend for testing."""
+    return create_fastapi("both")
+
+
 @backoff.on_exception(
     backoff.constant,
     (requests.ConnectionError, requests.HTTPError),

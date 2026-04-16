@@ -44,26 +44,23 @@ wheel:
 
 image:
 	# build the docker image
-	@ echo building docker image mex-editor:${LATEST}; \
-	export DOCKER_BUILDKIT=1; \
+	@ echo building docker image mex-editor-ng:${LATEST}; \
 	docker build \
-		--tag rki/mex-editor:${LATEST} \
-		--tag rki/mex-editor:latest .; \
+		--tag rki/mex-editor-ng:${LATEST} \
+		--tag rki/mex-editor-ng:latest .; \
 
 run: image
 	# run the service as a docker container
-	@ echo running docker container mex-editor:${LATEST}; \
+	@ echo running docker container mex-editor-ng:${LATEST}; \
 	docker run \
 		--env MEX_EDITOR_HOST=0.0.0.0 \
-		--publish 8081:8081 \
-		rki/mex-editor:${LATEST}; \
+		--publish 8000:8000 \
+		rki/mex-editor-ng:${LATEST}; \
 
-start: image
+start:
 	# start the service using docker compose
-	@ echo start mex-editor:${LATEST} with compose; \
-	export DOCKER_BUILDKIT=1; \
-	export COMPOSE_DOCKER_CLI_BUILD=1; \
-	docker compose up --remove-orphans; \
+	@ echo start mex-editor-ng:${LATEST} with compose; \
+	docker compose up --build --remove-orphans; \
 
 docs:
 	# use sphinx to auto-generate html docs from code

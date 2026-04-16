@@ -7,14 +7,14 @@
   <div>
     <h3>Base Href</h3>
     <h5>Images via tag</h5>
-    <img src="/root_image.png" alt="root image (/root_image.png)" />
-    <img src="/sub_dir/sub_image.jpg" alt="sub dir image (/sub_dir/sub_image.jpg)" />
+    <img src="root_image.png" alt="root image (root_image.png)" />
+    <img src="sub_dir/sub_image.jpg" alt="sub dir image (sub_dir/sub_image.jpg)" />
     <h5>Images via css</h5>
     <div class="image image-root"></div>
     <div class="image image-sub"></div>
     <button routerLink="/subpage">Go to sub page</button>
     <button routerLink="/sub/subpage">Go to sub sub page</button>
-    <button (click)="on_click()">Click me</button>
+    <button (click)="onClick()">Click me</button>
   </div>
   <div>
     <h3>DATA:</h3>

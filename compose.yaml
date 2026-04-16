@@ -1,20 +1,15 @@
 services:
   mex-editor:
-    build:
-      context: .
-    ports:
-      - 8081:8081
+    build: .
+    image: mex-editor:local
     environment:
-      - MEX_EDITOR_HOST=0.0.0.0
-      - MEX_EDITOR_PORT=8080
-    expose:
-      - 8081
-    healthcheck:
-      test: [ "CMD", "curl", "http://0.0.0.0:8080/_system/check" ]
-      interval: 60s
-      timeout: 5s
-      retries: 5
+      MEX_EDITOR__BASE_HREF: "/editor/"
+
+  httpd:
+    image: httpd:2.4
+    ports:
+      - "8000:80"
     volumes:
-      - data:/app/data
-volumes:
-  data:
+      - ./httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
+    depends_on:
+      - mex-editor

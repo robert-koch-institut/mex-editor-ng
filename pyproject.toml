@@ -141,6 +141,16 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["mex"]
+exclude = [
+    "mex/editor/client/.angular",
+    "mex/editor/client/.nodeenv",
+    "mex/editor/client/node_modules",
+]
 
 [tool.hatch.build.targets.sdist]
 packages = ["mex"]
+exclude = [
+    "mex/editor/client/.angular",
+    "mex/editor/client/.nodeenv",
+    "mex/editor/client/node_modules",
+]
