@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - setup docker compose and release pipeline
+- configure easy debugging with vscode
 
 ### Changes
 
