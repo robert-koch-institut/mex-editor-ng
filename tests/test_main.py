@@ -26,7 +26,7 @@ def test_create_fastapi(
     app = create_fastapi(startup)
     route_paths = [r.path for r in app.routes if isinstance(r, Route)]
     mount_paths = [r.path for r in app.routes if isinstance(r, Mount)]
-    assert ("/api/v0/sample-data" in route_paths) == expect_api
+    assert ("/api/v0/backend/{path:path}" in route_paths) == expect_api
     assert ("" in mount_paths) == expect_static
 
 
