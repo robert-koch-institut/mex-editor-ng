@@ -14,6 +14,7 @@ from mex.common.logging import logger
 from mex.editor.api.data import router as data_router
 from mex.editor.api.system import router as system_router
 from mex.editor.frontend import STATIC_DIR, npm_watch
+from mex.editor.logging import UVICORN_LOGGING_CONFIG
 from mex.editor.settings import EditorSettings
 
 if TYPE_CHECKING:  # pragma: no cover
@@ -53,8 +54,8 @@ async def dev_lifespan(_: FastAPI) -> AsyncGenerator[None]:  # pragma: no cover
 
 
 def create_fastapi(
-    mode: Literal["dev"] | None = None,
     startup: Literal["api", "frontend", "both"] = "both",
+    mode: Literal["dev"] | None = None,
 ) -> FastAPI:
     """Create and configure the FastAPI application."""
     settings = EditorSettings.get()
@@ -102,10 +103,17 @@ def main(
 ) -> None:  # pragma: no cover
     """Start the mex-editor api."""
     settings = EditorSettings.get()
-    app = create_fastapi("dev" if dev else None, startup)
+    app = create_fastapi(startup, "dev" if dev else None)
     uvicorn.run(
         app,
         host=settings.host,
         port=settings.port,
         root_path="" if settings.base_href == "/" else settings.base_href.rstrip("/"),
+        reload=dev,
+        log_config=UVICORN_LOGGING_CONFIG,
+        headers=[("server", "mex-editor")],
     )
+
+
+if __name__ == "__main__":  # pragma: no cover
+    main()

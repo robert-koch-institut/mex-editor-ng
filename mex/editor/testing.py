@@ -15,12 +15,12 @@ if TYPE_CHECKING:  # pragma: no cover
 
 def create_testing_api() -> FastAPI:
     """Create a FastAPI instance with only the API routes for testing."""
-    return create_fastapi(None, "api")
+    return create_fastapi("api")
 
 
 def create_testing_api_with_frontend() -> FastAPI:
     """Create a FastAPI instance with API routes and frontend for testing."""
-    return create_fastapi(None, "both")
+    return create_fastapi("both")
 
 
 @backoff.on_exception(

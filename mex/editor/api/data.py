@@ -6,28 +6,28 @@ router = APIRouter()
 
 _sample_data = [
     {
-        "title": "Überschrift 1",
+        "title": "Heading 1",
         "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam"
         "nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed"
         "diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet"
         "clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
     },
     {
-        "title": "Überschrift 2",
+        "title": "Heading 2",
         "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam"
         "nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed"
         "diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet"
         "clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
     },
     {
-        "title": "Überschrift 3",
+        "title": "Heading 3",
         "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam"
         "nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed"
         "diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet"
         "clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
     },
     {
-        "title": "Überschrift 4",
+        "title": "Heading 4",
         "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam"
         "nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed"
         "diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet"

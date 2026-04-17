@@ -1,0 +1,30 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "editor-debug",
+      "type": "debugpy",
+      "request": "attach",
+      "connect": {
+        "host": "localhost",
+        "port": 5678
+      },
+      "preLaunchTask": "editor-debug"
+    },
+    {
+      "name": "angular-dev[edge]",
+      "type": "msedge",
+      "request": "launch",
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceFolder}/mex/editor/client",
+      "preLaunchTask": "angular-dev",
+      "sourceMaps": true
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Run Editor (debug)",
+      "configurations": ["editor-debug", "angular-dev[edge]"]
+    }
+  ]
+}

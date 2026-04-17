@@ -21,4 +21,8 @@ export class App {
   private http = inject(HttpClient);
 
   data$ = this.http.get<SampleData[]>("api/v0/sample-data");
+
+  onClick() {
+    console.warn("CLICKED");
+  }
 }
