@@ -491,7 +491,7 @@ wheels = [
 
 [[package]]
 name = "mex-common"
-version = "1.17.0"
+version = "1.19.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "backoff" },
@@ -509,14 +509,14 @@ dependencies = [
     { name = "requests" },
     { name = "tabulate" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/66/01/bed359e1a890eabb22223bf2231a57d8b15a9aa89750a4304873ceea387e/mex_common-1.17.0.tar.gz", hash = "sha256:def9d3d0e5162758905b270f20f33e73e1bf9b2b5278c96754eeb179a1b834ec", size = 89931, upload-time = "2026-03-17T08:30:10.692Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/08/4e/8fe74a2e803c135f8e3f6ad842f906493c43d25dcad132d3f2efe8dfd475/mex_common-1.19.0.tar.gz", hash = "sha256:5426ffd6e0fbfcb15dac851c6704372d903fd231c5e2ee8cffe9b607741a6197", size = 90249, upload-time = "2026-04-17T11:59:45.04Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/e0/1c/702a8301c627a46676b0975b897a8e1b57e78f104f5ad74466ed62ca04b2/mex_common-1.17.0-py3-none-any.whl", hash = "sha256:6714d7dd2ea1005d02ea799ffcadb71aa5a453990558ee871d28560bf712eeba", size = 137588, upload-time = "2026-03-17T08:30:09.375Z" },
+    { url = "https://files.pythonhosted.org/packages/85/d8/1b446e3e3f85f48cc6e19936878c2583d7d0d1f607e448e5eb6bee1fed81/mex_common-1.19.0-py3-none-any.whl", hash = "sha256:f895ea3a7ba4b2760b603fdb6f159385cf3f8da8d080b8d344e9aabd37f57b39", size = 137345, upload-time = "2026-04-17T11:59:43.581Z" },
 ]
 
 [[package]]
 name = "mex-editor-ng"
-version = "0.1.0"
+version = "0.0.0"
 source = { editable = "." }
 dependencies = [
     { name = "backoff" },
@@ -548,7 +548,7 @@ requires-dist = [
     { name = "backoff", specifier = ">=2.2.1,<3" },
     { name = "click", specifier = ">=8.3.1,<9" },
     { name = "fastapi", specifier = ">=0.135.2,<0.136" },
-    { name = "mex-common", specifier = ">=1.17.0,<1.18" },
+    { name = "mex-common", specifier = ">=1.19.0,<1.20" },
     { name = "nodeenv", specifier = ">=1.10.0,<2" },
     { name = "requests", specifier = ">=2.33.0,<2.34" },
     { name = "uvicorn", specifier = ">=0.42.0,<1" },
