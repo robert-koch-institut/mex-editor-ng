@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+### Changes
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.0.1] - 2026-04-27
+
+### Added
+
 - setup docker compose and release pipeline
 - configure easy debugging with vscode
 - integrate backend proxy endpoint and show items in app
@@ -19,11 +33,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - updated template to https://github.com/robert-koch-institut/mex-template/commit/af9ddc
 - updated template to https://github.com/robert-koch-institut/mex-template/commit/172aac
 - updated template to https://github.com/robert-koch-institut/mex-template/commit/43f715
-
-### Deprecated
-
-### Removed
-
-### Fixed
 
 ### Security
