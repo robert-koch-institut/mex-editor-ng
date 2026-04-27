@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - setup docker compose and release pipeline
 - configure easy debugging with vscode
+- integrate backend proxy endpoint and show items in app
 
 ### Changes
 
