@@ -76,6 +76,7 @@ jobs:
         run: |
           npm version ${{ inputs.version }} --no-git-tag-version --prefix mex/editor/client/
           git add mex/editor/client/package.json mex/editor/client/package-lock.json
+          git commit -m "bump npm version" mex/editor/client/package.json mex/editor/client/package-lock.json
           mex release ${{ inputs.version }}
           echo "tag=$(git describe --abbrev=0 --tags)" >> "$GITHUB_OUTPUT"
 
