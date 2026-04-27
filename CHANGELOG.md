@@ -17,6 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- allow more base hrefs
+
 ### Security
 
 ## [0.0.1] - 2026-04-27
