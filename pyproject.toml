@@ -1,5 +1,5 @@
 [project]
-name = "mex-editor"
+name = "mex-editor-ng"
 version = "0.1.0"
 description = "The editor enables anyone to create and edit entities in a simple and fast way."
 authors = [{ name = "MEx Team", email = "mex@rki.de" }]
