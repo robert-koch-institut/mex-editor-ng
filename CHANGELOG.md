@@ -15,8 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changes
 
+- updated template to https://github.com/robert-koch-institut/mex-template/commit/af9ddc
 - updated template to https://github.com/robert-koch-institut/mex-template/commit/172aac
-- updated template to https://github.com/robert-koch-institut/mex-template/commit/43f7153
+- updated template to https://github.com/robert-koch-institut/mex-template/commit/43f715
 
 ### Deprecated
 
