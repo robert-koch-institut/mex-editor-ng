@@ -9,7 +9,6 @@
     "source.fixAll.eslint": "explicit"
   },
   "html.format.enable": false,
-  "js/ts.format.enabled": false,
   "python.autoComplete.extraPaths": ["${workspaceFolder}/.venv/lib"],
   "python.analysis.extraPaths": ["${workspaceFolder}/.venv/lib"],
   "python.analysis.exclude": [
@@ -20,5 +19,8 @@
   "python.testing.pytestArgs": ["-s"],
   "python.testing.unittestEnabled": false,
   "python.testing.pytestEnabled": true,
-  "python.testing.pytestPath": "${workspaceFolder}/.venv/scripts/pytest"
+  "python.testing.pytestPath": "${workspaceFolder}/.venv/scripts/pytest",
+  "ruff.path": ["ruff"],
+  "ruff.importStrategy": "fromEnvironment",
+  "ruff.nativeServer": "on"
 }
