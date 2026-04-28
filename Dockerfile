@@ -16,7 +16,7 @@ RUN uv export --no-dev --no-editable | uv pip install --system --no-deps -r -
 
 RUN install-frontend
 RUN MEX_EDITOR__CLIENT_DIR="/build/dist" MEX_EDITOR__BASE_HREF="/"        build-frontend
-RUN MEX_EDITOR__CLIENT_DIR="/build/dist" MEX_EDITOR__BASE_HREF="/editor/" build-frontend
+RUN MEX_EDITOR__CLIENT_DIR="/build/dist" MEX_EDITOR__BASE_HREF="/editor-ng/" build-frontend
 
 FROM python:3.14-slim
 

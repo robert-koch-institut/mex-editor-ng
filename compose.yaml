@@ -3,7 +3,7 @@ services:
     build: .
     image: mex-editor-ng:local
     environment:
-      MEX_EDITOR__BASE_HREF: "/editor/"
+      MEX_EDITOR__BASE_HREF: "/editor-ng/"
       MEX_BACKEND_API_KEY: "write_key"
       MEX_BACKEND_API_URL: "http://mex-backend:8080/"
     depends_on:

@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Literal
 
 from pydantic import Field
 
@@ -22,7 +23,7 @@ class EditorSettings(BaseSettings):
         description="Port that the server should listen on.",
         validation_alias="MEX_EDITOR__PORT",
     )
-    base_href: str = Field(
+    base_href: Literal["/", "/editor-ng/"] = Field(
         "/",
         validation_alias="MEX_EDITOR__BASE_HREF",
     )
