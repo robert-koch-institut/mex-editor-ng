@@ -1,33 +1,33 @@
 <main class="main">
-  <div>
-    <h1>Hello, {{ title() }}</h1>
-    <p>Congratulations! Your app is running. 🎉</p>
-    <mat-slide-toggle>Toggle me!</mat-slide-toggle>
-  </div>
-  <div>
-    <h3>Base Href</h3>
-    <h5>Images via tag</h5>
-    <img src="root_image.png" alt="root image (root_image.png)" />
-    <img src="sub_dir/sub_image.jpg" alt="sub dir image (sub_dir/sub_image.jpg)" />
-    <h5>Images via css</h5>
-    <div class="image image-root"></div>
-    <div class="image image-sub"></div>
+    <section>
+    <h1>{{ title() }}</h1>
+  </section>
+  <section class="spaced">
     <button routerLink="/subpage">Go to sub page</button>
     <button routerLink="/sub/subpage">Go to sub sub page</button>
-    <button (click)="onClick()">Click me</button>
-  </div>
-  <div>
-    <h3>DATA:</h3>
+    <mat-slide-toggle>Toggle me!</mat-slide-toggle>
+    <button (click)="onClick()" matButton="filled"><mat-icon>favorite</mat-icon>Click me!</button>
+  </section>
+  <section>
+    <h3>Images via tag</h3>
+    <img src="Nordufer_Kirschbluete.png" height=200 alt="Nordufer Kirschbluete" />
+    <img src="sub_dir/Wernigerode_Luftaufnahme.jpg" height=200 alt="Wernigerode Luftaufnahme" />
+    <h3>Images via css</h3>
+    <div class="image image-root"></div>
+    <div class="image image-sub"></div>
+  </section>
+  <section>
+    @let data = data$ | async;
+    <h2>Backend Items ({{ data?.total ?? 0 }})</h2>
     <ul>
-      @for (item of data$ | async; track item.title) {
+      @for (item of data?.items; track item.identifier) {
         <li>
-          <b>{{ item.title }}</b
-          ><br />{{ item.text }}
+          <b>{{ item.$type }}</b>: {{ item.identifier }}
         </li>
       } @empty {
         <li>There are no items.</li>
       }
     </ul>
-  </div>
+  </section>
+  <router-outlet />
 </main>
-<router-outlet />

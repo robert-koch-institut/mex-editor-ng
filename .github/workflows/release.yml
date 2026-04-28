@@ -74,8 +74,10 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.MEX_CONTENT_WRITE_TOKEN }}
         run: |
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           npm version ${{ inputs.version }} --no-git-tag-version --prefix mex/editor/client/
           git add mex/editor/client/package.json mex/editor/client/package-lock.json
+          git commit -m "bump npm version" mex/editor/client/package.json mex/editor/client/package-lock.json
           mex release ${{ inputs.version }}
           echo "tag=$(git describe --abbrev=0 --tags)" >> "$GITHUB_OUTPUT"
 
@@ -94,28 +96,6 @@ jobs:
           fetch-depth: 1
           ref: ${{ needs.release.outputs.tag }}
           persist-credentials: false
-
-      - name: Cache requirements
-        uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
-        env:
-          cache-name: cache-requirements
-        with:
-          path: ~/.cache/pip
-          key: ${{ env.cache-name }}-${{ hashFiles('requirements.txt') }}
-          restore-keys: |
-            ${{ env.cache-name }}-
-
-      - name: Setup python
-        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
-        with:
-          python-version: 3.14
-
-      - name: Install requirements
-        run: make setup
-
-      - name: Generate locked requirements.txt
-        run: |
-          uv export --no-dev --output locked-requirements.txt --no-hashes
 
       - name: Login to container registry
         uses: docker/login-action@b45d80f862d83dbcd57f89517bcf500b2ab88fb2 # v4.0.0

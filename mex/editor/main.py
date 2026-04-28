@@ -11,7 +11,7 @@ from starlette.datastructures import Headers
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from mex.common.logging import logger
-from mex.editor.api.data import router as data_router
+from mex.editor.api.backend import router as backend_router
 from mex.editor.api.system import router as system_router
 from mex.editor.frontend import STATIC_DIR, npm_watch
 from mex.editor.logging import UVICORN_LOGGING_CONFIG
@@ -60,7 +60,7 @@ def create_fastapi(
     """Create and configure the FastAPI application."""
     settings = EditorSettings.get()
     app = FastAPI(
-        title="mex-editor",
+        title="mex-editor-ng",
         lifespan=dev_lifespan if mode == "dev" else None,
         root_path="" if settings.base_href == "/" else settings.base_href.rstrip("/"),
     )
@@ -71,7 +71,7 @@ def create_fastapi(
         allow_headers=["*"],
     )
     if startup in ["api", "both"]:
-        app.include_router(data_router, prefix="/api/v0")
+        app.include_router(backend_router, prefix="/api/v0")
         app.include_router(system_router, prefix="/api/v0")
     if startup in ["frontend", "both"]:
         app.mount(
@@ -101,7 +101,7 @@ def main(
     startup: Literal["api", "frontend", "both"] = "both",
     dev: bool = False,
 ) -> None:  # pragma: no cover
-    """Start the mex-editor api."""
+    """Start the mex-editor-ng api."""
     settings = EditorSettings.get()
     app = create_fastapi(startup, "dev" if dev else None)
     uvicorn.run(
@@ -109,9 +109,8 @@ def main(
         host=settings.host,
         port=settings.port,
         root_path="" if settings.base_href == "/" else settings.base_href.rstrip("/"),
-        reload=dev,
         log_config=UVICORN_LOGGING_CONFIG,
-        headers=[("server", "mex-editor")],
+        headers=[("server", "mex-editor-ng")],
     )
 
 

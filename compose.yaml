@@ -1,9 +1,14 @@
 services:
-  mex-editor:
+  mex-editor-ng:
     build: .
-    image: mex-editor:local
+    image: mex-editor-ng:local
     environment:
-      MEX_EDITOR__BASE_HREF: "/editor/"
+      MEX_EDITOR__BASE_HREF: "/editor-ng/"
+      MEX_BACKEND_API_KEY: "write_key"
+      MEX_BACKEND_API_URL: "http://mex-backend:8080/"
+    depends_on:
+      mex-backend:
+        condition: service_healthy
 
   httpd:
     image: httpd:2.4
@@ -12,4 +17,58 @@ services:
     volumes:
       - ./httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
     depends_on:
-      - mex-editor
+      - mex-editor-ng
+
+  mex-backend:
+    image: ghcr.io/robert-koch-institut/mex-backend:1.8.0
+    ports:
+      - 8080:8080
+    environment:
+      - MEX_BACKEND_API_KEY_DATABASE={"write":["write_key"]}
+      - MEX_BACKEND_API_USER_DATABASE={"write":{"admin":"admin"}}
+      - MEX_BACKEND_VALKEY_URL=valkey://valkey:6379
+      - MEX_GRAPH_URL=neo4j://neo4j:7687
+      - MEX_IDENTITY_PROVIDER=graph
+    healthcheck:
+      test: [ "CMD", "python", "-c", "'import requests; requests.get(\"http://mex-backend:8080/v0/_system/check\").raise_for_status()'" ]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    depends_on:
+      neo4j:
+        condition: service_healthy
+      valkey:
+        condition: service_healthy
+
+  neo4j:
+    image: neo4j:2026.02-community
+    environment:
+      - NEO4J_AUTH=neo4j/password
+    ports:
+      - 7687:7687
+    volumes:
+      - neo4j_data:/data
+    healthcheck:
+      test: [ "CMD", "cypher-shell", "-u", "neo4j", "-p", "password", "RETURN 1" ]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  valkey:
+    image: valkey/valkey:9.0.3
+    ports:
+      - 6379:6379
+    volumes:
+      - valkey_data:/data
+    healthcheck:
+      test: [ "CMD", "valkey-cli", "ping" ]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+volumes:
+  neo4j_data:
+  valkey_data:
