@@ -52,6 +52,14 @@ backend and an Angular frontend. It provides a user-friendly interface for creat
 editing and managing metadata entities, making research data at RKI findable, accessible
 and reusable.
 
+### Client
+
+The client is build with angular and lifes in `/mex/editor/client`. The directory is an isolated Node environment managed by `nodeenv`. To install node packages u can use `uv run exec-npm install <packagename>`. To exec angular specfic commands u can use `uv run exec-ng add <schematic>`.
+
+### API
+
+API is build with Fastapi and lifes in `mex/editor/api`and serves data specific for the editor under `/api/v0`. It includes a proxy for the `mex.backend` availabe under `/api/v0/backend`. The build angular client will be served under `/`.
+
 ## License
 
 This package is licensed under the [MIT license](/LICENSE). All other software
@@ -64,6 +72,17 @@ components of the MEx project are open-sourced under the same license as well.
 - install python on your system
 - on unix, run `make install`
 - on windows, run `.\mex.bat install`
+
+### Running
+
+- `uv run editor` to start the editor on configured port (default: 8000)
+- `uv run editor --dev` to start the editor in watch mode (auto rebuild app) on configured port (default: 8000)
+
+If u're using VSCode u can use the predefined launch configuration.
+
+- `Run Editor (debug)` starts `editor-api-debug` and `angular-dev[edge]`
+  - `editor-api-debugg` starts the API with debugpy and attach vscode debugger
+  - `angular-dev[edge]` builds angular in dev mode using angular dev server and connect with edge
 
 ### Linting and testing
 
@@ -78,7 +97,7 @@ components of the MEx project are open-sourced under the same license as well.
 - update git hooks with `pre-commit autoupdate`
 - update package dependencies using `uv sync --upgrade`
 - update github actions in `.github/workflows/*.yml` manually
-- update node modules using `uv run exec-npm install --package-lock-only`
+- update node modules/packages using `uv run exec-npm install`
 
 ### Creating release
 

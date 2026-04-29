@@ -2,14 +2,14 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "editor-debug",
+      "name": "editor-api-debug",
       "type": "debugpy",
       "request": "attach",
       "connect": {
         "host": "localhost",
         "port": 5678
       },
-      "preLaunchTask": "editor-debug"
+      "preLaunchTask": "editor-api-debug"
     },
     {
       "name": "angular-dev[edge]",
