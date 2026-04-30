@@ -24,7 +24,7 @@
   "compounds": [
     {
       "name": "Run Editor (debug)",
-      "configurations": ["editor-debug", "angular-dev[edge]"]
+      "configurations": ["editor-api-debug", "angular-dev[edge]"]
     }
   ]
 }

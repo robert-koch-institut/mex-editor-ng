@@ -21,6 +21,6 @@
   "python.testing.pytestEnabled": true,
   "python.testing.pytestPath": "${workspaceFolder}/.venv/scripts/pytest",
   "ruff.path": ["ruff"],
-  "ruff.importStrategy": "fromEnvironment",
+  "ruff.importStrategy": "useBundled",
   "ruff.nativeServer": "on"
 }

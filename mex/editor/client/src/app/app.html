@@ -1,21 +1,8 @@
 <main class="main">
-    <section>
-    <h1>{{ title() }}</h1>
-  </section>
-  <section class="spaced">
-    <button routerLink="/subpage">Go to sub page</button>
-    <button routerLink="/sub/subpage">Go to sub sub page</button>
-    <mat-slide-toggle>Toggle me! PLZ</mat-slide-toggle>
-    <button (click)="onClick()" matButton="filled"><mat-icon>favorite</mat-icon>Click me!</button>
-  </section>
-  <section>
-    <h3>Images via tag</h3>
-    <img src="Nordufer_Kirschbluete.png" height=200 alt="Nordufer Kirschbluete" />
-    <img src="sub_dir/Wernigerode_Luftaufnahme.jpg" height=200 alt="Wernigerode Luftaufnahme" />
-    <h3>Images via css</h3>
-    <div class="image image-root"></div>
-    <div class="image image-sub"></div>
-  </section>
+  <h1>{{ title() }}</h1>
+
+  <p>Hello Zehra!</p>
+
   <section>
     @let data = data$ | async;
     <h2>Backend Items ({{ data?.total ?? 0 }})</h2>
@@ -29,5 +16,4 @@
       }
     </ul>
   </section>
-  <router-outlet />
 </main>

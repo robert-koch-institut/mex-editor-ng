@@ -1,26 +1,5 @@
+
 .main {
-  font-family: sans-serif;
   margin: 100px auto 0;
   max-width: 600px;
-}
-
-.spaced > * {
-  margin: 10px;
-}
-
-.image {
-  height: 200px;
-  background-size: cover;
-  background-position: center;
-  display: inline-flex;
-}
-
-.image-root {
-  background-image: url("../assets/Wildau_Luftansicht.png");
-  aspect-ratio: 3 / 2;
-}
-
-.image-sub {
-  background-image: url("../assets/sub_dir/Seestrasse_Luftaufnahme.png");
-  aspect-ratio: 3 / 2;
 }
